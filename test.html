@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jogo da Memória</title>
+  <style>
+    .carta {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc;
+      display: inline-block;
+      margin: 10px;
+    }
+    .carta-certa {
+      border: 2px solid #0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jogo da Memória</h1>
+  <div id="tabuleiro">
+    <!-- Cartas do jogo -->
+    <div class="carta" onclick="virarCarta(this, 'imagem1.jpg')">
+      <img src="imagem1.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+    <div class="carta" onclick="virarCarta(this, 'imagem2.jpg')">
+      <img src="imagem2.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+    <div class="carta" onclick="virarCarta(this, 'imagem3.jpg')">
+      <img src="imagem3.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+    <div class="carta" onclick="virarCarta(this, 'imagem4.jpg')">
+      <img src="imagem4.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+    <div class="carta" onclick="virarCarta(this, 'imagem5.jpg')">
+      <img src="imagem5.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+    <div class="carta" onclick="virarCarta(this, 'imagem1.jpg')">
+      <img src="imagem1.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+    <div class="carta" onclick="virarCarta(this, 'imagem2.jpg')">
+      <img src="imagem2.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+    <div class="carta" onclick="virarCarta(this, 'imagem3.jpg')">
+      <img src="imagem3.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+    <div class="carta" onclick="virarCarta(this, 'imagem4.jpg')">
+      <img src="imagem4.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+    <div class="carta" onclick="virarCarta(this, 'imagem5.jpg')">
+      <img src="imagem5.jpg" style="display: none; width: 100px; height: 100px;">
+    </div>
+  </div>
+  <script>
+    let cartaVirada = null;
+    let cartaViradaAnterior = null;
+    let cartasViradas = 0;
+    let cartasCertas = 0;
+    // Função para virar a carta
+    function virarCarta(carta, imagem) {
+      if (cartaVirada === carta) return;
+      if (cartasViradas >= 2) return;
+      carta.innerHTML = '<img src="' + imagem + '" style="width: 100px; height: 100px;">';
+      if (!cartaVirada) {
+        cartaVirada = carta;
+      } else {
+        cartaViradaAnterior = cartaVirada;
+        cartaVirada = carta;
+        cartasViradas++;
+        if (cartaVirada.innerHTML === cartaViradaAnterior.innerHTML) {
+          cartaVirada.classList.add('carta-certa');
+          cartaViradaAnterior.classList.add('carta-certa');
+          cartasCertas++;
+          cartaVirada = null;
+          cartaViradaAnterior = null;
+          cartasViradas = 0;
+        } else {
+          setTimeout(() => {
+            cartaVirada.innerHTML = '';
+            cartaViradaAnterior.innerHTML = '';
+            cartaVirada = null;
+            cartaViradaAnterior = null;
+            cartasViradas = 0;
+          }, 1000);
+        }
+      }
+      if (cartasCertas === 10) {
+        alert('Parabéns, você ganhou!');
+      }
+    }
+  </script>
+</body>
+</html>
